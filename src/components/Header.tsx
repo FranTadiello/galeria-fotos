@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     return (
         <AppBar position="static" sx={styles.container} >
             <Toolbar>
-                <Typography variant="h4" sx={styles.titulo}>
+                <Typography variant="h4" component="div" sx={styles.titulo}>
                     Galeria de Fotos
                 </Typography>
             </Toolbar>
@@ -18,11 +18,14 @@ export default Header;
 
 const styles = {
     container: {
-        backgroundColor: "#de7e3e",
-        width : "100%"
+        backgroundColor:"rgb(49, 38, 31)",
+        width : "100%",
+        padding: "10px, 0"
     },
     titulo: {
         flexGrow: 1,
-        textAlign: "center"
+        textAlign: "center",
+        fontWeight: "bold",
+        textTransform: "uppercase"
     }
 }
