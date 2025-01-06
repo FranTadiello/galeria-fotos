@@ -1,10 +1,9 @@
 /*Exiba o nome da foto centralizado abaixo da foto, 
 em formato de grid. Aumentar a foto quando passar o  mouse.*/
 import React, { useEffect, useState } from "react";
-import { Box, Grid2  } from "@mui/material";
+import { Box, Grid2, Pagination, Typography } from "@mui/material";
 import FotoCard from "./FotoCard";
 import Busca from "./Busca";
-
 
 interface Foto {
   id: number;
@@ -13,68 +12,98 @@ interface Foto {
 }
 
 interface ApiResponse {
-  results:{
+  results: {
     name: string,
     image: string,
-  } [];
+  }[];
 }
 
 const GaleriaFotos: React.FC = () => {
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [buscar, setbuscar] = useState<string>("");
+  const [paginaAtual, setPaginaAtual] = useState<number>(1);
+  const [totalPaginas, setTotalPaginas] = useState<number>(0);
+  const [erro, setErro] = useState<string | null>(null);
 
-  const fetchFotos = async () => {
+  const fetchFotos = async (pagina: number, busca?: string) => {
     try {
-      const response = await fetch("https://rickandmortyapi.com/api/character/?page=16"); 
-      const data: ApiResponse = await response.json();
+      const baseUrl = "https://rickandmortyapi.com/api/character/";
+      const query = busca ? `?name=${busca}` : `?page=${pagina}`;
+      const response = await fetch(baseUrl + query);
+
+      if (!response.ok) {
+        throw new Error("Nenhum resultado encontrado.");
+        
+      }
+      const data: ApiResponse & { info: {pages: number}}= await response.json();
 
       const fotosData: Foto[] = data.results.map((infos, index) => ({
-        id: index + 1,
-        name: infos.name,  
-        url: infos.image,  
+        id: index + 1 + (pagina - 1) * 20,
+        name: infos.name,
+        url: infos.image,
       }));
 
       setFotos(fotosData);
-  
+      setTotalPaginas(data.info.pages);
+      setErro(null);
     } catch (error) {
       console.error("Erro ao buscar as fotos:", error);
+      setFotos([]);
+      setTotalPaginas(0);
+      setErro("Infelizmente não encontramos o resultado da sua pesquisa.");
     }
   };
 
   useEffect(() => {
-    fetchFotos();
-  }, []);
+    if (!buscar) {
+      fetchFotos(paginaAtual);
+    }}, [paginaAtual, buscar]);
 
-  const pesquisar = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setbuscar(event.target.value);
-  };
   const pesquisarClick = () => {
+    setPaginaAtual(1);
+    fetchFotos(1, buscar);
     console.log("Pesquisando por:", buscar);
   };
-  const fotosFiltradas = fotos.filter((foto)=>
-    foto.name.toLocaleLowerCase().includes(buscar.toLocaleLowerCase())
-  ); 
-  
 
-    return (
-        <Box 
-          sx={{ 
-            padding: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems:"center", 
-            flexDirection: "column"
-          }}>
-            < Busca buscaAtual={buscar} pesquisa={pesquisar} pesquisarClick={pesquisarClick}  />
-            <Grid2 container spacing={3} >
-                {fotosFiltradas.slice(0,10).map((foto) => (
-                 <FotoCard name={foto.name} url={foto.url} />
-                        
-
-                ))}
-       </Grid2>
-        </Box>
-    );
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        padding: "20px",
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexDirection: "column",
+        
+      }}>
+      < Busca 
+        buscaAtual={buscar}
+        pesquisa= {(e) => setbuscar(e.target.value)}
+        pesquisarClick={pesquisarClick} 
+      />
+      {erro ? (
+        <Typography variant="h5" color="#44281d" sx={{ marginTop: "20px" }}>
+          {erro}
+        </Typography>
+      ) : (
+        <>
+          <Grid2 container spacing={3}>
+            {fotos.map((foto) => (
+              <FotoCard key={foto.id} name={foto.name} url={foto.url} />
+            ))}
+          </Grid2>
+          {totalPaginas > 1 && (
+            <Pagination
+              count={totalPaginas}
+              page={paginaAtual}
+              onChange={(_, value) => setPaginaAtual(value)}
+              sx={{ marginTop: "20px" }}
+            />
+          )}
+        </>
+      )}
+    </Box>
+  );
 };
 
 export default GaleriaFotos;

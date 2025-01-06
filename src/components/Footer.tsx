@@ -1,4 +1,3 @@
-//Informações de copyright “© 2024 Galeria de Fotos. Todos os direitos reservados.”
 import React from "react";
 import { Box, Typography } from "@mui/material";
 

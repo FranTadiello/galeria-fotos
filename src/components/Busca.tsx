@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, InputAdornment  } from "@mui/material";
+import { Box, TextField, IconButton } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 interface BuscaProps {
@@ -9,32 +9,25 @@ interface BuscaProps {
 }       
 
 const Busca: React.FC<BuscaProps> = ({ buscaAtual, pesquisa, pesquisarClick}) => {
-    return (
-        <TextField 
-            label="Buscar Personagem"
-            variant="outlined" 
-            value={buscaAtual}  
-            onChange={pesquisa}  
-            sx={{
-              marginBottom: "20px",  
-              width: "100%",
-              maxWidth: "500px",  
-            }}
 
-            slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon 
-                      sx={{ color: "black" }} 
-                      onClick={pesquisarClick}
-                    />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-        />
-    )
+    const clique = () => {
+        pesquisarClick();
+    };
+    return (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginBottom: "20px" }}>
+          <TextField
+            value={buscaAtual}
+            onChange={pesquisa}
+            placeholder="Digite para buscar..."
+            variant="outlined"
+            size="small"
+            sx={{ flexGrow: 1 }}
+          />
+          <IconButton onClick={clique}>
+            <SearchIcon />
+          </IconButton>
+        </Box>
+      );
 }
 
 export default Busca;

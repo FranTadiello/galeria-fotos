@@ -1,6 +1,6 @@
-import './App.css'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import GaleriaFotos from './components/GaleriaFotos';
 
 function App() {
@@ -14,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
