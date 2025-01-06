@@ -21,8 +21,6 @@ const styles = {
         width : "100%",
         textAlign: "center",
         padding: "10px, 0",
-        marginTop: "auto",
-        position: "absolute",
-        bottom: "0",
+        marginTop: "auto"
     }
 }
