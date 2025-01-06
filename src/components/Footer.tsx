@@ -16,7 +16,7 @@ export default Footer;
 
 const styles = {
     container: {
-        backgroundColor:"rgb(49, 38, 31)",
+        backgroundColor:"#44281d",
         color: "white",
         width : "100%",
         textAlign: "center",

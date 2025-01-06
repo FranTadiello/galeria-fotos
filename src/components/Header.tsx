@@ -7,7 +7,8 @@ const Header: React.FC = () => {
         <AppBar position="static" sx={styles.container} >
             <Toolbar>
                 <Typography variant="h4" component="div" sx={styles.titulo}>
-                    Galeria de Fotos
+                    Galeria de Fotos <hr color="#e4a788"></hr>
+                    Rick and Morty
                 </Typography>
             </Toolbar>
         </AppBar>
@@ -18,9 +19,9 @@ export default Header;
 
 const styles = {
     container: {
-        backgroundColor:"rgb(49, 38, 31)",
+        backgroundColor:"#44281d",
         width : "100%",
-        padding: "10px, 0"
+        padding: "20px"
     },
     titulo: {
         flexGrow: 1,

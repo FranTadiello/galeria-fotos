@@ -1,8 +1,10 @@
 /*Exiba o nome da foto centralizado abaixo da foto, 
 em formato de grid. Aumentar a foto quando passar o  mouse.*/
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
-import { Grid2 } from '@mui/material';
+import { Box, Grid2  } from "@mui/material";
+import FotoCard from "./FotoCard";
+import Busca from "./Busca";
+
 
 interface Foto {
   id: number;
@@ -19,6 +21,7 @@ interface ApiResponse {
 
 const GaleriaFotos: React.FC = () => {
   const [fotos, setFotos] = useState<Foto[]>([]);
+  const [buscar, setbuscar] = useState<string>("");
 
   const fetchFotos = async () => {
     try {
@@ -32,6 +35,7 @@ const GaleriaFotos: React.FC = () => {
       }));
 
       setFotos(fotosData);
+  
     } catch (error) {
       console.error("Erro ao buscar as fotos:", error);
     }
@@ -40,53 +44,32 @@ const GaleriaFotos: React.FC = () => {
   useEffect(() => {
     fetchFotos();
   }, []);
-    
+
+  const pesquisar = (event:React.ChangeEvent<HTMLInputElement>) => {
+    setbuscar(event.target.value);
+  };
+  const pesquisarClick = () => {
+    console.log("Pesquisando por:", buscar);
+  };
+  const fotosFiltradas = fotos.filter((foto)=>
+    foto.name.toLocaleLowerCase().includes(buscar.toLocaleLowerCase())
+  ); 
+  
+
     return (
         <Box 
           sx={{ 
             padding: "20px",
             display: "flex",
             justifyContent: "center",
-            alignItems:"center",
-            
+            alignItems:"center", 
+            flexDirection: "column"
           }}>
-            <Grid2 container spacing={4} >
-                {fotos.slice(0,10).map((foto) => (
-                 
-                        <Box
-                            sx={{
-                                position: "relative",
-                                overflow: "hidden",
-                                borderRadius: "8px",
-                                boxShadow: 3,
-                                "&:hover": {
-                                    transform: "scale(1.12)",
-                                    transition: "transform 0.3s ease-in-out",
-                                },
-                            }}
-                        >
-                            <img
-                                src={foto.url}
-                                alt={foto.name}
-                                style={{
-                                    width: "100%",
-                                    height: "auto",
-                                    display: "block",
-                                }}
-                            />
-                            <Typography
-                                variant="body1"
-                                sx={{
-                                    textAlign: "center",
-                                    fontWeight: "bold",
-                                    padding: "10px",
-                                    backgroundColor: "white",
-                  
-                                }}
-                            >
-                                {foto.name}
-                            </Typography>
-                        </Box>
+            < Busca buscaAtual={buscar} pesquisa={pesquisar} pesquisarClick={pesquisarClick}  />
+            <Grid2 container spacing={3} >
+                {fotosFiltradas.slice(0,10).map((foto) => (
+                 <FotoCard name={foto.name} url={foto.url} />
+                        
 
                 ))}
        </Grid2>
