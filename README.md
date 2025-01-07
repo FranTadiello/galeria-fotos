@@ -118,7 +118,7 @@ Isso abrirá a aplicação no navegador em http://localhost:3000.
 
 ## Pessoas Desenvolvedoras do Projeto
 
-- **[Franciele Tafiello](https://github.com/FranTadiello)** 
+- **[Franciele Tadiello](https://github.com/FranTadiello)** 
 
 ---
 
