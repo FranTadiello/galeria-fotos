@@ -1,6 +1,8 @@
-# Galeria de Fotos
+# Galeria de Fotos do Rick and Morty
 
-![Imagem de Capa](./assets/capa_rick_and_morty.jpg)  
+ <div alignitems= center>
+     <img src="./src/assets/capa_rick_and_morty.jpg" alt="Imagem de Capa" alignItens=center style="width: 100%;>
+</div>
 É uma aplicação web desenvolvida em **React com TypeScript**, utilizando **Material-UI** e criada com **Vite**. O projeto foi elaborado como parte da seleção para a Aceleradora Ágil - PUCRS. O objetivo da aplicação é exibir uma galeria de fotos, na qual escolhi apresentar personagens da série Rick and Morty. A aplicação conta com funcionalidades como busca ao clicar no botão (optei por essa abordagem devido à ambiguidade na descrição do problema, que não especificava se a busca deveria ocorrer enquanto se digita ou apenas com o clique), paginação e efeitos visuais interativos.
 
 ---
@@ -39,11 +41,19 @@ A **Galeria de Fotos** é uma aplicação web criada para exibir imagens dos per
 ### Demonstração da Aplicação
 A aplicação exibe fotos de personagens da série *Rick and Morty*, e a pesquisa filtra os resultados com base no nome do personagem.
 - **Barra de busca**
-![Demonstração da barra de busca](./assets/image_barra_de_pesquisa.jpg) 
+<div >
+     <img src="./src/assets/image_barra_de_pesquisa.jpg" alt="Demonstração da barra de busca" alignItens="center" style="width: 70vh";>
+</div>
+
 - **Interatividade**
-![Demonstração da interatividade](./assets/image_interatividade.jpg) 
+<div>
+     <img src="./src/assets/image_interatividade.jpg" alt="Demonstração da interatividade" alignItens="center" style="width: 70vh";>
+</div>
+
 - **Paginação**
-![Demonstração da paginação](./assets/image_paginação.jpg) 
+<div>
+     <img src="./src/assets/image_paginação.jpg" alt="Demonstração da paginação" alignItens="center" style="width: 70vh";>
+</div>
 
 ---
 
