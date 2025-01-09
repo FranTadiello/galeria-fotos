@@ -1,5 +1,3 @@
-/*Exiba o nome da foto centralizado abaixo da foto, 
-em formato de grid. Aumentar a foto quando passar o  mouse.*/
 import React, { useEffect, useState } from "react";
 import { Box, Grid2, Pagination, Typography } from "@mui/material";
 import FotoCard from "./FotoCard";
